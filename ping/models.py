@@ -9,8 +9,8 @@ from django.db import models
 
 
 class MatchStatus(models.Model):
-    mas_id = models.DecimalField(primary_key=True, max_digits=65535, decimal_places=65535)
-    mas_name = models.CharField(max_length=10, blank=True, null=True)
+    id = models.DecimalField(primary_key=True, max_digits=65535, decimal_places=65535, db_column='mas_id')
+    name = models.CharField(max_length=10, blank=True, null=True, db_column='mas_name')
 
     class Meta:
         managed = False
