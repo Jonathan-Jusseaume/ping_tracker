@@ -1,7 +1,64 @@
 :root {
     --background-color: #646C79;
+    --main-color: #1F3044;
+    --font-color: #FB9039;
+    font-family: Verdana;
 }
 
 body {
     background: var(--background-color);
+    color: var(--font-color);
+}
+
+/*
+Barre de navigation
+ */
+nav {
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    width: 200px;
+    height: 100%;
+    position: fixed;
+    background: var(--main-color);
+}
+
+nav a {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    color: var(--font-color);
+    font-weight: 500;
+}
+
+nav a img {
+    height: 65px;
+}
+
+nav a:first-of-type {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    border-bottom: solid 1px var(--font-color);
+}
+
+nav a:not(first-of-type) {
+    padding-top: 40px;
+}
+
+@media screen and (max-height: 685px) {
+    nav a:not(first-of-type) {
+        padding-top: 20px;
+    }
+}
+
+
+/*
+Contenu de l'application
+ */
+main {
+    height: 100%;
+    margin-left: 200px;
 }

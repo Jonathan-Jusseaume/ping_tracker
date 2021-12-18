@@ -1,12 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Ping Tracker</title>
-    {% load static %}
     <link href="{% static 'styles/main.css' %}" type="text/css" rel="stylesheet">
 </head>
 <body>
+<nav>
+    <a href="">
+        <img src="{% static 'assets/table-tennis-solid.svg' %}" alt="Logo de l'application Ping Tracker"/>
+    </a>
+    <a href="">
+        <img src="{% static 'assets/chart-line-solid.svg' %}" alt="Logo du dashboard"/>
+        <span>Dashboard</span>
+    </a>
+    <a href="">
+        <img src="{% static 'assets/plus-circle-solid.svg' %}" alt="Logo de la page d'ajout d'une rencontre"/>
+        <span>Ajouter une rencontre</span>
+    </a>
+    <a href="">
+        <img src="{% static 'assets/sticky-note-regular.svg' %}" alt="Logo de la page des notes de l'entraîneur"/>
+        <span>Mes notes</span>
+    </a>
+    <a href="">
+        <img src="{% static 'assets/history-solid.svg' %}" alt="Logo de la page d'historique de nos rencontres"/>
+        <span>Historique</span>
+    </a>
+</nav>
+<main>
 
+</main>
 </body>
 </html>
