@@ -15,3 +15,13 @@ class MatchStatus(models.Model):
     class Meta:
         managed = False
         db_table = 'pt_match_status'
+
+
+class Opponent(models.Model):
+    id = models.CharField(primary_key=True, max_length=7, db_column='opp_id')
+    last_name = models.CharField(max_length=50, blank=True, null=True, db_column='opp_last_name')
+    first_name = models.CharField(max_length=50, blank=True, null=True, db_column='opp_first_name')
+
+    class Meta:
+        managed = False
+        db_table = 'pt_opponent'
