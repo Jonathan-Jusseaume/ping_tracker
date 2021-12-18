@@ -10,7 +10,7 @@ from django.db import models
 
 class MatchStatus(models.Model):
     id = models.DecimalField(primary_key=True, max_digits=65535, decimal_places=65535, db_column='mas_id')
-    name = models.CharField(max_length=10, blank=True, null=True, db_column='mas_name')
+    name = models.CharField(max_length=10, db_column='mas_name')
 
     class Meta:
         managed = False
@@ -19,8 +19,8 @@ class MatchStatus(models.Model):
 
 class Opponent(models.Model):
     id = models.CharField(primary_key=True, max_length=7, db_column='opp_id')
-    last_name = models.CharField(max_length=50, blank=True, null=True, db_column='opp_last_name')
-    first_name = models.CharField(max_length=50, blank=True, null=True, db_column='opp_first_name')
+    last_name = models.CharField(max_length=50, db_column='opp_last_name')
+    first_name = models.CharField(max_length=50, db_column='opp_first_name')
 
     class Meta:
         managed = False

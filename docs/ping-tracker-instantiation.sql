@@ -1,7 +1,7 @@
 CREATE TABLE pt_match_status
 (
     mas_id   NUMERIC,
-    mas_name VARCHAR(10),
+    mas_name VARCHAR(10) NOT NULL,
     CONSTRAINT pt_match_status_pk PRIMARY KEY (mas_id)
 );
 
@@ -28,7 +28,7 @@ EXECUTE PROCEDURE do_not_change();
 CREATE TABLE pt_opponent
 (
     opp_id         VARCHAR(7),
-    opp_last_name  VARCHAR(50),
-    opp_first_name VARCHAR(50),
+    opp_last_name  VARCHAR(50) NOT NULL,
+    opp_first_name VARCHAR(50) NOT NULL,
     CONSTRAINT pt_opponent_pk PRIMARY KEY (opp_id)
 );
