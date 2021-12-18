@@ -32,3 +32,12 @@ CREATE TABLE pt_opponent
     opp_first_name VARCHAR(50) NOT NULL,
     CONSTRAINT pt_opponent_pk PRIMARY KEY (opp_id)
 );
+
+CREATE TABLE pt_note
+(
+    not_id      SERIAL,
+    not_content VARCHAR(500) NOT NULL,
+    not_usr_id  INTEGER      NOT NULL,
+    CONSTRAINT pt_notes_pk PRIMARY KEY (not_id),
+    CONSTRAINT pt_notes_user_fk FOREIGN KEY (not_usr_id) REFERENCES auth_user
+);
