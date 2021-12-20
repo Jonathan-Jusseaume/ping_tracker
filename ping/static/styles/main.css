@@ -1,7 +1,9 @@
 :root {
     --background-color: #646C79;
     --main-color: #1F3044;
-    --font-color: #FB9039;
+    --font-color: white;
+    --font-color-win: #39A4FB;
+    --font-color-lose: #F86368;
     font-family: Verdana;
 }
 
@@ -61,4 +63,80 @@ Contenu de l'application
 main {
     height: 100%;
     margin-left: 200px;
+}
+
+fieldset {
+    background: var(--main-color);
+    border-radius: 10px;
+    border: none;
+    padding: 5px 20px 15px 20px;
+    display: flex;
+}
+
+fieldset .victory {
+    color: var(--font-color-win);
+    font-size: 36px;
+    font-weight: 500;
+    background: transparent;
+}
+
+fieldset .resume {
+    font-style: italic;
+    font-size: 13px;
+}
+
+fieldset table {
+    margin-top: 20px;
+    font-size: 14px;
+    max-width: 600px;
+    font-weight: normal;
+}
+
+fieldset table, fieldset table th, fieldset table td {
+    border: solid 1px var(--background-color);
+    border-collapse: collapse;
+}
+
+fieldset table th {
+    font-weight: normal;
+    padding: 8px;
+}
+
+fieldset table td {
+    padding: 8px;
+}
+
+fieldset .round {
+    text-align: center;
+    font-weight: 600;
+}
+
+fieldset .win {
+    color: var(--font-color-win);
+}
+
+fieldset .lose {
+    color: var(--font-color-lose);
+}
+
+fieldset .information {
+    padding-right: 20px;
+}
+
+fieldset .commentary {
+    border-left: 1px solid var(--background-color);
+    font-style: italic;
+    padding-left: 20px;
+}
+
+@media screen and (max-width: 800px) {
+    fieldset {
+        flex-direction: column;
+    }
+
+    fieldset .commentary {
+        border: none;
+        padding-left: unset;
+        padding-top: 30px;
+    }
 }
