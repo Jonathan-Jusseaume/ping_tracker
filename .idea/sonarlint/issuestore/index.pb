@@ -25,3 +25,11 @@ H
 ping/admin.py,f\2\f2ba45c9cfe21d8e607130a7b1d92eb1e0f16969
 <
 ping/apps.py,e\5\e59d2cbeee8b2ecc67a51c4c06e8ee50388d4cf6
+W
+'ping/static/assets/chart-line-solid.svg,5\4\54175a49a1744825d09d428d2ffe5f97999a843d
+T
+$ping/static/assets/history-solid.svg,a\d\ad7e8bac395ab54edb003ad8e2d8e93ebd5b36f2
+X
+(ping/static/assets/clipboard-regular.svg,3\0\30aad2dc008e48d3a3490ba502f7bd2d75014869
+Z
+*ping/static/assets/sticky-note-regular.svg,7\c\7c81f9bd139ea2ec8c2d754d87f61e8b3b89826d
