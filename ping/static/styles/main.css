@@ -65,7 +65,7 @@ main {
     margin-left: 200px;
 }
 
-fieldset {
+.match {
     background: var(--main-color);
     border-radius: 10px;
     border: none;
@@ -74,7 +74,7 @@ fieldset {
     overflow-x: auto;
 }
 
-fieldset .victory {
+.match .victory {
     color: var(--font-color-win);
     font-size: 36px;
     font-weight: 500;
@@ -82,61 +82,61 @@ fieldset .victory {
     border-radius: 10px;
 }
 
-fieldset .resume {
+.match .resume {
     font-style: italic;
     font-size: 13px;
 }
 
-fieldset table {
+.match table {
     margin-top: 20px;
     font-size: 14px;
     max-width: 600px;
     font-weight: normal;
 }
 
-fieldset table, fieldset table th, fieldset table td {
+.match table, .match table th, .match table td {
     border: solid 1px var(--background-color);
     border-collapse: collapse;
 }
 
-fieldset table th {
+.match table th {
     font-weight: normal;
     padding: 8px;
 }
 
-fieldset table td {
+.match table td {
     padding: 8px;
 }
 
-fieldset .round {
+.match .round {
     text-align: center;
     font-weight: 600;
 }
 
-fieldset .win {
+.match .win {
     color: var(--font-color-win);
 }
 
-fieldset .lose {
+.match .lose {
     color: var(--font-color-lose);
 }
 
-fieldset .information {
+.match .information {
     padding-right: 20px;
 }
 
-fieldset .commentary {
+.match .commentary {
     border-left: 1px solid var(--background-color);
     font-style: italic;
     padding-left: 20px;
 }
 
 @media screen and (max-width: 800px) {
-    fieldset {
+    .match {
         flex-direction: column;
     }
 
-    fieldset .commentary {
+    .match .commentary {
         border: none;
         padding-left: unset;
         padding-top: 30px;
