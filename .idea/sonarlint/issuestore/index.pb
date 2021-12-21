@@ -27,3 +27,7 @@ H
 ping_tracker/settings.py,c\9\c98e90e37d7947621c71309d00f757c6f0315e44
 S
 #docs/ping-tracker-instantiation.sql,3\f\3f1e5b01a35c243e8e00bec978a30c7f9a7f88b6
+=
+ping/admin.py,f\2\f2ba45c9cfe21d8e607130a7b1d92eb1e0f16969
+<
+ping/apps.py,e\5\e59d2cbeee8b2ecc67a51c4c06e8ee50388d4cf6

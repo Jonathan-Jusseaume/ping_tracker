@@ -71,13 +71,15 @@ fieldset {
     border: none;
     padding: 5px 20px 15px 20px;
     display: flex;
+    overflow-x: auto;
 }
 
 fieldset .victory {
     color: var(--font-color-win);
     font-size: 36px;
     font-weight: 500;
-    background: transparent;
+    background: var(--background-color);
+    border-radius: 10px;
 }
 
 fieldset .resume {
