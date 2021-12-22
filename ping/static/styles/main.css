@@ -89,14 +89,22 @@ main {
     padding: 5px 20px 15px 20px;
     display: flex;
     overflow-x: auto;
+    margin-bottom: 25px;
 }
 
-.match .victory {
-    color: var(--font-color-win);
+.match legend {
     font-size: 36px;
     font-weight: 500;
     background: var(--background-color);
     border-radius: 10px;
+}
+
+.match .victory {
+    color: var(--font-color-win);
+}
+
+.match .defeat {
+    color: var(--font-color-lose);
 }
 
 .match .resume {
@@ -107,7 +115,7 @@ main {
 .match table {
     margin-top: 20px;
     font-size: 14px;
-    max-width: 600px;
+    width: 100%;
     font-weight: normal;
 }
 
@@ -140,12 +148,14 @@ main {
 
 .match .information {
     padding-right: 20px;
+    width: 40%;
 }
 
 .match .commentary {
     border-left: 1px solid var(--background-color);
     font-style: italic;
     padding-left: 20px;
+    width: 50%;
 }
 
 .card {
@@ -164,7 +174,7 @@ main {
     padding: 20px 40px;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1100px) {
     .match {
         flex-direction: column;
     }
@@ -173,5 +183,10 @@ main {
         border: none;
         padding-left: unset;
         padding-top: 30px;
+        width: 100%;
+    }
+
+    .match .information {
+        width: 90%;
     }
 }

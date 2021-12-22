@@ -1,49 +1,56 @@
 {% extends "main.html" %}
 {% block content %}
+
     <section class="card">
         <h1 class="card-title">Mon historique</h1>
         <section class="card-body">
-            <fieldset class="match">
-                <legend class="victory">Victoire</legend>
-                <div class="information">
-                    <span class="resume">Match joué le 28/10/2021 contre Dummy John</span>
-                    <table class="results">
-                        <thead>
-                        <tr>
-                            <th>Joueurs</th>
-                            <th>Manche 1</th>
-                            <th>Manche 2</th>
-                            <th>Manche 3</th>
-                            <th>Manche 4</th>
-                            <th>Manche 5</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td class="joueur win">Moi</td>
-                            <td class="win round">11</td>
-                            <td class="lose round">09</td>
-                            <td class="win round">11</td>
-                            <td class="win round">11</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="joueur lose">Dummy John</td>
-                            <td class="lose round">07</td>
-                            <td class="win round">11</td>
-                            <td class="lose round">08</td>
-                            <td class="lose round">06</td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="commentary">
-                    "J'ai eu une chance monstrueuse sur cette partie."
-                </div>
-            </fieldset>
+            {% for match in matchs %}
+                <fieldset class="match">
+                    {% if match.status.id == 0 %}
+                        <legend class="victory">Victoire</legend>
+                    {% else %}
+                        <legend class="defeat">Défaite</legend>
+                    {% endif %}
+                    <div class="information">
+                        <span class="resume">Match joué le {{ match.date }} contre {{ match.opponent.last_name }} {{ match.opponent.first_name }}</span>
+                        <table class="results">
+                            <thead>
+                            <tr>
+                                <th>Joueurs</th>
+                                {% for set in match.sets %}
+                                    <th>Manche {{ forloop.counter }}</th>
+                                {% endfor %}
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="joueur {% if match.status.id == 0 %} win {% else %} lose {% endif %}">
+                                    Moi
+                                </td>
+                                {% for set in match.sets %}
+                                    <td class="round {% if set.score_user > set.score_opponent %} win {% else %} lose {% endif %}">
+                                        {{ set.score_user }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                <td class="joueur {% if match.status.id == 1 %} win {% else %} lose {% endif %}">
+                                    {{ match.opponent.last_name }} {{ match.opponent.first_name }}
+                                </td>
+                                {% for set in match.sets %}
+                                    <td class="round {% if set.score_opponent > set.score_user %} win {% else %} lose {% endif %}">
+                                        {{ set.score_opponent }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="commentary">
+                        "{{ match.comment }}"
+                    </div>
+                </fieldset>
+            {% endfor %}
         </section>
-
     </section>
-
 {% endblock %}
