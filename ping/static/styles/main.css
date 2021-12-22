@@ -4,6 +4,7 @@
     --font-color: white;
     --font-color-win: #469BBA;
     --font-color-lose: #E07F6E;
+    --color-unfocus: rgb(173, 174, 179);
     font-family: Verdana;
 }
 
@@ -31,12 +32,16 @@ nav a {
     align-items: center;
     gap: 5px;
     text-decoration: none;
-    color: var(--font-color);
+    color: var(--color-unfocus);
     font-weight: 500;
 }
 
-nav a img {
+nav a svg {
     height: 55px;
+}
+
+nav a svg path {
+    fill: var(--color-unfocus);
 }
 
 nav a:first-of-type {
@@ -45,13 +50,21 @@ nav a:first-of-type {
     border-bottom: solid 1px var(--font-color);
 }
 
-nav a:not(first-of-type) {
+nav .link {
     padding: 20px 0px;
 }
 
-nav a:not(first-of-type):hover {
+nav .link:hover {
     background: rgb(42, 64, 77);
     border-right: solid 5px var(--font-color-win);
+}
+
+nav .link:hover svg path {
+    fill: var(--font-color);
+}
+
+nav .link:hover {
+    color: var(--font-color);
 }
 
 @media screen and (max-height: 685px) {

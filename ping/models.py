@@ -31,8 +31,35 @@ class Opponent(models.Model):
 class Note(models.Model):
     id = models.AutoField(primary_key=True, db_column='not_id')
     content = models.CharField(max_length=500, db_column='not_content')
-    usr = models.ForeignKey(User, models.DO_NOTHING, db_column='not_usr')
+    date = models.DateField(db_column='not_date')
+    user = models.ForeignKey(User, models.DO_NOTHING, db_column='not_usr')
 
     class Meta:
         managed = False
         db_table = 'pt_note'
+
+
+class Match(models.Model):
+    id = models.AutoField(primary_key=True, db_column='mat_id')
+    user = models.ForeignKey(User, models.DO_NOTHING, db_column='mat_usr')
+    status = models.ForeignKey(MatchStatus, models.DO_NOTHING, db_column='mat_mas')
+    opponent = models.ForeignKey(Opponent, models.DO_NOTHING, db_column='mat_opp')
+    rank_opponent = models.DecimalField(max_digits=65535, decimal_places=65535, db_column='mat_rank_opponent')
+    date = models.DateField(db_column='mat_date')
+    comment = models.CharField(max_length=500, blank=True, null=True, db_column='mat_comment')
+
+    class Meta:
+        managed = False
+        db_table = 'pt_match'
+
+
+class Set(models.Model):
+    id = models.AutoField(primary_key=True, db_column='set_id')
+    match = models.ForeignKey(Match, models.DO_NOTHING, db_column='set_mat')
+    score_user = models.DecimalField(max_digits=65535, decimal_places=65535, db_column='set_score_user')
+    score_opponent = models.DecimalField(max_digits=65535, decimal_places=65535, db_column='set_score_opponent')
+    number = models.DecimalField(max_digits=65535, decimal_places=65535, db_column='set_number')
+
+    class Meta:
+        managed = False
+        db_table = 'pt_set'
