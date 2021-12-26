@@ -65,6 +65,13 @@ class Match(models.Model):
         }
         return win_lose_ratio
 
+    @staticmethod
+    def get_matchs_of_user(user):
+        matchs = Match.objects.all().order_by('-date')
+        for match in matchs:
+            match.get_sets_of_match()
+        return matchs
+
     class Meta:
         managed = False
         db_table = 'pt_match'

@@ -17,7 +17,5 @@ def notes(request):
 
 def history(request):
     print(request.user)
-    matchs = Match.objects.all()
-    for match in matchs:
-        match.get_sets_of_match()
-    return render(request, "history/history.html", {"matchs": matchs})
+
+    return render(request, "history/history.html", {"matchs": Match.get_matchs_of_user(request.user)})

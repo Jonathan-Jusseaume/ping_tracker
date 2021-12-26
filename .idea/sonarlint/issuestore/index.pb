@@ -23,3 +23,19 @@ T
 $ping/static/assets/history-solid.svg,a\d\ad7e8bac395ab54edb003ad8e2d8e93ebd5b36f2
 Z
 *ping/static/assets/sticky-note-regular.svg,7\c\7c81f9bd139ea2ec8c2d754d87f61e8b3b89826d
+@
+ping/__init__.py,3\2\32ca6f12a85a4887d673ee452f3c415f049f3e3e
+9
+	manage.py,3\1\3156ad13e4d695cd526bbb7b031016ecba842270
+=
+ping/admin.py,f\2\f2ba45c9cfe21d8e607130a7b1d92eb1e0f16969
+<
+ping/apps.py,e\5\e59d2cbeee8b2ecc67a51c4c06e8ee50388d4cf6
+D
+ping_tracker/asgi.py,4\1\416b55bfe51d0ea6635bafdb3e3dfea0ef924189
+S
+#docs/ping-tracker-instantiation.sql,3\f\3f1e5b01a35c243e8e00bec978a30c7f9a7f88b6
+M
+ping/templatetags/__init__.py,a\4\a4d37caafc6220c70139b8684fbcf5118901a26d
+H
+ping_tracker/settings.py,c\9\c98e90e37d7947621c71309d00f757c6f0315e44
