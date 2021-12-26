@@ -15,11 +15,12 @@
                     <div class="information">
                         <span class="resume">Match joué le {{ match.date | date:'d/m/Y' }} contre {{ match.opponent | opponent_details }}</span>
                         <table class="results">
+                            <caption>Résumé du match</caption>
                             <thead>
                             <tr>
-                                <th>Joueurs</th>
+                                <th id="players">Joueurs</th>
                                 {% for set in match.sets %}
-                                    <th>Manche {{ forloop.counter }}</th>
+                                    <th id="round{{ forloop.counter }}">Manche {{ forloop.counter }}</th>
                                 {% endfor %}
                             </tr>
                             </thead>

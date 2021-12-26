@@ -51,7 +51,7 @@ nav a:first-of-type {
 }
 
 nav .link {
-    padding: 20px 0px;
+    padding: 20px 0;
 }
 
 nav .link:hover {
@@ -199,6 +199,10 @@ main {
     gap: 50px;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+caption {
+    margin-bottom: 10px;
 }
 
 

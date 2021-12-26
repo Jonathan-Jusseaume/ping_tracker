@@ -60,8 +60,8 @@ class Match(models.Model):
     @staticmethod
     def get_win_lose_ratio(user):
         win_lose_ratio = {
-            'Victoire': Match.objects.filter(status__id=StatusType.VICTORY.value).count(),
-            'Défaite': Match.objects.filter(status__id=StatusType.DEFEAT.value).count()
+            StatusTypeString.VICTORY.value: Match.objects.filter(status__id=StatusType.VICTORY.value).count(),
+            StatusTypeString.DEFEAT.value: Match.objects.filter(status__id=StatusType.DEFEAT.value).count()
         }
         return win_lose_ratio
 
@@ -98,8 +98,8 @@ class Set(models.Model):
                 lose_fifth_set += 1
 
         fifth_set_ratio = {
-            'Victoire': win_fifth_set,
-            'Défaite': lose_fifth_set
+            StatusTypeString.VICTORY.value: win_fifth_set,
+            StatusTypeString.DEFEAT.value: lose_fifth_set
         }
         return fifth_set_ratio
 
@@ -118,8 +118,8 @@ class Set(models.Model):
                     lose_clutch_set += 1
 
         clutch_set_ratio = {
-            'Victoire': win_clutch_set,
-            'Défaite': lose_clutch_set
+            StatusTypeString.VICTORY.value: win_clutch_set,
+            StatusTypeString.DEFEAT.value: lose_clutch_set
         }
         return clutch_set_ratio
 
@@ -131,3 +131,8 @@ class Set(models.Model):
 class StatusType(Enum):
     VICTORY = 0
     DEFEAT = 1
+
+
+class StatusTypeString(Enum):
+    VICTORY = "Victoire(s)"
+    DEFEAT = "Défaite(s)"

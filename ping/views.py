@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from ping.models import *
+from ping.models import Match, Set
 
 
 def main(request):
@@ -16,6 +16,4 @@ def notes(request):
 
 
 def history(request):
-    print(request.user)
-
     return render(request, "history/history.html", {"matchs": Match.get_matchs_of_user(request.user)})
