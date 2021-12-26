@@ -1,5 +1,3 @@
-import json
-
 from django.shortcuts import render
 
 # Create your views here.
@@ -7,13 +5,10 @@ from ping.models import *
 
 
 def main(request):
-    win_lose_ratio = {
-        'Victoire': Match.objects.filter(status__id=StatusType.VICTORY.value).count(),
-        'Défaite': Match.objects.filter(status__id=StatusType.DEFEAT.value).count()
-    }
-    print(json.dumps(win_lose_ratio))
-
-    return render(request, "dashboard/dashboard.html", {"win_lose_ratio": win_lose_ratio})
+    return render(request, "dashboard/dashboard.html",
+                  {"win_lose_ratio": Match.get_win_lose_ratio(request.user),
+                   "fifth_set_ratio": Set.get_fifth_set_ratio(request.user),
+                   "clutch_set_ratio": Set.get_clutch_set_ratio(request.user)})
 
 
 def notes(request):

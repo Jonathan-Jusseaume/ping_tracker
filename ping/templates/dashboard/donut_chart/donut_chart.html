@@ -1,89 +1,90 @@
-<div class="graph">
+<div class="{{ id }}">
 </div>
 
 {% load ping_pipe %}
 
 <script>
-    const stats = {{ stats | js }};
-    const width = 300;
-    const height = 300;
-    const labels = Object.keys(stats);
-    const values = Object.values(stats)
-    const colors = ['#469BBA', '#E07F6E'];
-    let indexFocus = values.indexOf(Math.max(...values));
-    let listIndex;
-    let svg;
-    let pieChartG;
-    let middleInformation;
-    const radius = Math.min(width, height) / 2;
+
+    create();
+
+    function create() {
+        let stats = {{ stats | js }};
+        const width = 300;
+        const height = 300;
+        const labels = Object.keys(stats);
+        const values = Object.values(stats)
+        const colors = ['#469BBA', '#E07F6E'];
+        let indexFocus = values.indexOf(Math.max(...values));
+        let listIndex;
+        let svg;
+        let pieChartG;
+        let middleInformation;
+        const radius = Math.min(width, height) / 2;
+        createAll();
 
 
-    window.onload = createAll();
-
-    function createAll() {
-        if (svg) {
-            svg.remove();
+        function createAll() {
+            listIndex = [];
+            values.forEach((value, index) => {
+                if (value > 0) {
+                    listIndex.push(index);
+                }
+            });
+            createSVG();
+            drawPieChart();
+            setMiddleValue()
         }
-        listIndex = [];
-        values.forEach((value, index) => {
-            if (value > 0) {
-                listIndex.push(index);
+
+        function createSVG() {
+            svg = d3.select('.{{ id }}')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .attr('class', 'ground');
+            pieChartG = svg.append('g')
+                .attr(
+                    'transform',
+                    'translate(' + width / 2 + ',' + height / 2 + ')'
+                );
+        }
+
+        function drawPieChart() {
+            const pie = d3.pie();
+            const arc = d3
+                .arc()
+                .innerRadius(radius * 0.7)
+                .outerRadius(radius * 0.9);
+
+            const valueFiltered = values.filter(v => v > 0);
+            const dataDonut = pie(valueFiltered);
+            listIndex.forEach((value, index) => {
+                dataDonut[index]['id'] = value;
+            });
+            pieChartG
+                .selectAll('allSlices')
+                .data(dataDonut)
+                .enter()
+                .append('path')
+                .on('mousemove', (d) => {
+                    indexFocus = d.id;
+                    setMiddleValue();
+                })
+                .attr('d', arc)
+                .attr('fill', d => colors[d.id])
+
+        }
+
+        function setMiddleValue() {
+            if (middleInformation) {
+                middleInformation.remove();
             }
-        });
-        createSVG();
-        drawPieChart();
-        setMiddleValue()
-    }
-
-    function createSVG() {
-        svg = d3.select('.graph')
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .attr('class', 'ground');
-        pieChartG = svg.append('g')
-            .attr(
-                'transform',
-                'translate(' + width / 2 + ',' + height / 2 + ')'
-            );
-    }
-
-    function drawPieChart() {
-        const pie = d3.pie();
-        const arc = d3
-            .arc()
-            .innerRadius(radius * 0.7)
-            .outerRadius(radius * 0.9);
-
-        const valueFiltered = values.filter(v => v > 0);
-        const dataDonut = pie(valueFiltered);
-        listIndex.forEach((value, index) => {
-            dataDonut[index]['id'] = value;
-        });
-        pieChartG
-            .selectAll('allSlices')
-            .data(dataDonut)
-            .enter()
-            .append('path')
-            .on('mousemove', (d) => {
-                indexFocus = d.id;
-                setMiddleValue();
-            })
-            .attr('d', arc)
-            .attr('fill', d => colors[d.id])
-
-    }
-
-    function setMiddleValue() {
-        if (middleInformation) {
-            middleInformation.remove();
+            middleInformation = pieChartG.append('text')
+                .attr('text-anchor', 'middle')
+                .attr('width', 100)
+                .html('<tspan x="0" dy="-15px" style="font-size: 60px; font-weight: 600;" >' + values[indexFocus] + '</tspan>'
+                    + '<tspan x="0" dy="50px" style="font-size: 28px; font-weight: 600;" >' + labels[indexFocus] + '</tspan>')
+                .attr('fill', colors[indexFocus]);
         }
-        middleInformation = pieChartG.append('text')
-            .attr('text-anchor', 'middle')
-            .attr('width', 100)
-            .html('<tspan x="0" dy="-15px" style="font-size: 60px; font-weight: 600;" >' + values[indexFocus] + '</tspan>'
-                + '<tspan x="0" dy="50px" style="font-size: 28px; font-weight: 600;" >' + labels[indexFocus] + '</tspan>')
-            .attr('fill', colors[indexFocus]);
     }
 
 

@@ -3,8 +3,28 @@
 {% block content %}
     <section class="card">
         <h1 class="card-title">Mes chiffres</h1>
-        <section class="card-body">
-            {% include "dashboard/donut_chart/donut_chart.html" with stats=win_lose_ratio %}
+        <section class="card-body container">
+            <section class="card stats">
+                <h2 class="card-title">Bilan des matchs</h2>
+                <section class="card-body">
+
+                    {% include "dashboard/donut_chart/donut_chart.html" with stats=win_lose_ratio id="graph1" %}
+                </section>
+            </section>
+
+            <section class="card stats">
+                <h2 class="card-title">Bilan des 5<sup>e</sup> manches</h2>
+                <section class="card-body">
+                    {% include "dashboard/donut_chart/donut_chart.html" with stats=fifth_set_ratio id="graph2" %}
+                </section>
+            </section>
+
+            <section class="card stats">
+                <h2 class="card-title">Bilan des points d'écarts</h2>
+                <section class="card-body">
+                    {% include "dashboard/donut_chart/donut_chart.html" with stats=clutch_set_ratio id="graph3" %}
+                </section>
+            </section>
         </section>
     </section>
 {% endblock %}

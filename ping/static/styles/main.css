@@ -162,16 +162,37 @@ main {
     padding: 20px;
 }
 
+.stats {
+    width: fit-content;
+    padding: unset;
+
+}
+
+
+.stats .card-title {
+    margin: unset;
+
+}
+
+.stats .card-body {
+    padding: 20px 80px;
+    border: solid 1px var(--main-color);
+}
+
 .card-title {
     background: var(--main-color);
     text-align: center;
     border-radius: 10px;
     padding: 10px;
-
 }
 
 .card-body {
     padding: 20px 40px;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
 }
 
 @media screen and (max-width: 1100px) {
