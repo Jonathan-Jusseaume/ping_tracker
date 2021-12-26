@@ -56,14 +56,18 @@ nav .link {
 
 nav .link:hover {
     background: rgb(42, 64, 77);
+}
+
+.active-link {
+    background: rgb(42, 64, 77);
     border-right: solid 5px var(--font-color-win);
 }
 
-nav .link:hover svg path {
+nav .active-link svg path {
     fill: var(--font-color);
 }
 
-nav .link:hover {
+nav .active-link {
     color: var(--font-color);
 }
 
@@ -192,8 +196,11 @@ main {
 
 .container {
     display: flex;
-    gap: 30px;
+    gap: 50px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
+
 
 @media screen and (max-width: 1100px) {
     .match {
