@@ -1,0 +1,10 @@
+{% extends "main.html" %}
+{% load ping_pipe %}
+{% block content %}
+    <section class="card">
+        <h1 class="card-title">Mes chiffres</h1>
+        <section class="card-body">
+            {% include "dashboard/donut_chart/donut_chart.html" with stats=win_lose_ratio %}
+        </section>
+    </section>
+{% endblock %}

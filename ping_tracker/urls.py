@@ -20,7 +20,7 @@ import ping.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ping.views.main),
+    path('dashboard', ping.views.main),
     path('notes', ping.views.notes),
     path('historique', ping.views.history)
 ]

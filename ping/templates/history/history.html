@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+{% load ping_pipe %}
 {% block content %}
 
     <section class="card">
@@ -12,7 +13,7 @@
                         <legend class="defeat">Défaite</legend>
                     {% endif %}
                     <div class="information">
-                        <span class="resume">Match joué le {{ match.date }} contre {{ match.opponent.last_name }} {{ match.opponent.first_name }}</span>
+                        <span class="resume">Match joué le {{ match.date | date:'d/m/Y' }} contre {{ match.opponent | opponent_details }}</span>
                         <table class="results">
                             <thead>
                             <tr>
@@ -35,7 +36,7 @@
                             </tr>
                             <tr>
                                 <td class="joueur {% if match.status.id == 1 %} win {% else %} lose {% endif %}">
-                                    {{ match.opponent.last_name }} {{ match.opponent.first_name }}
+                                    {{ match.opponent | opponent_details }}
                                 </td>
                                 {% for set in match.sets %}
                                     <td class="round {% if set.score_opponent > set.score_user %} win {% else %} lose {% endif %}">
