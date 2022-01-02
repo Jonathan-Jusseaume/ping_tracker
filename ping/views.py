@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
-from ping.models import Match, Set
+from ping.models import Match, Note, Set
 
 
 def main(request):
@@ -12,8 +12,16 @@ def main(request):
 
 
 def notes(request):
-    return render(request, "notes/notes.html")
+    return render(request, "notes/notes.html", {"notes": Note.get_notes_of_user(request.user)})
 
 
 def history(request):
     return render(request, "history/history.html", {"matchs": Match.get_matchs_of_user(request.user)})
+
+
+def add_notes(request):
+    if request.method == 'POST':
+        note = request.POST.get('note')
+        if note is not None:
+            Note.add_note(note)
+    return redirect("/notes")

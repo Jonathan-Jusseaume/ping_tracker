@@ -1,9 +1,24 @@
 {% extends "main.html" %}
+{% load static %}
 {% block content %}
-    <section class="card">
+    <section class="card notes-container">
         <h1 class="card-title">Mes notes</h1>
+        <button id="add" class="add-button">AJOUTER</button>
         <section class="card-body">
-
+            <form id="form-container" method="post" action="add-notes">
+                {% csrf_token %}
+            </form>
+            {% for note in notes %}
+                <fieldset>
+                    <legend>{{ note.date | date:'d/m/Y' }}</legend>
+                    <div class="notes">
+                        {{ note.content }}
+                    </div>
+                </fieldset>
+            {% endfor %}
         </section>
     </section>
+    <script type="text/javascript" src="{% static 'js/notes.js' %}"></script>
+
 {% endblock %}
+

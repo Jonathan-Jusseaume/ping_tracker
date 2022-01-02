@@ -13,7 +13,9 @@
                         <legend class="defeat">Défaite</legend>
                     {% endif %}
                     <div class="information">
-                        <span class="resume">Match joué le {{ match.date | date:'d/m/Y' }} contre {{ match.opponent | opponent_details }}</span>
+                        <span class="resume">Match joué le {{ match.date | date:'d/m/Y' }} contre {{ match.opponent | opponent_details }}
+                            ({{ match.rank_opponent }})
+                        </span>
                         <table class="results">
                             <caption>Résumé du match</caption>
                             <thead>

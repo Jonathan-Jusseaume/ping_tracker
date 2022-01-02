@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard', ping.views.main),
     path('notes', ping.views.notes),
+    path('add-notes', ping.views.add_notes),
     path('historique', ping.views.history),
 ]
