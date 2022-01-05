@@ -11,6 +11,7 @@
 body {
     background: var(--background-color);
     color: var(--font-color);
+    margin: 0 !important;
 }
 
 /*
@@ -23,6 +24,12 @@ nav {
     height: 100%;
     position: fixed;
     background: var(--main-color);
+}
+
+header {
+    min-height: 40px;
+    background: var(--main-color);
+    display: none;
 }
 
 nav a {
@@ -288,6 +295,7 @@ input[type=reset]:hover {
 .form-group span,
 .form-group label {
     float: left;
+    text-align: left;
 }
 
 .form-group .error {
@@ -354,10 +362,41 @@ input[type=number] {
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 900px) {
     .card-body {
         padding: 20px 0px;
     }
+}
+
+@media screen and (max-width: 815px) {
+    nav {
+        display: none;
+    }
+
+    .display {
+        display: block !important;
+    }
+
+    .display-icon {
+        margin-left: 210px;
+    }
+
+    header {
+        display: block;
+    }
+
+    header img {
+        width: 40px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    main {
+        margin-left: 0px;
+    }
+}
+
+@media screen and (max-width: 700px) {
 
     .actions {
         flex-direction: column !important;
