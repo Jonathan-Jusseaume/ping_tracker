@@ -222,7 +222,7 @@ caption {
     text-align: left;
 }
 
-button {
+button, input[type=reset], input[type=submit] {
     background: var(--main-color);
     color: var(--font-color);
     border: 2px solid var(--font-color);
@@ -233,9 +233,14 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+button:hover, input[type=submit]:hover {
     color: var(--font-color-win);
     border-color: var(--font-color-win);
+}
+
+input[type=reset]:hover {
+    color: var(--font-color-lose);
+    border-color: var(--font-color-lose);
 }
 
 #form-container {
@@ -243,11 +248,60 @@ button:hover {
     margin-top: 25px;
     margin-bottom: 25px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.active-form {
+    padding: 10px 30px;
+}
+
+#form-container .form-group {
+    margin: 20px auto;
+    width: 100%;
 }
 
 #form-container textarea {
-    width: 90%;
-    margin: 20px auto;
+    width: 100%;
+    min-height: 140px;
+    margin-top: 5px;
+    background: var(--main-color);
+    border: 2px solid var(--font-color);
+    border-radius: 5px;
+    color: var(--font-color);
+    resize: none;
+    font-size: 16px;
+}
+
+#form-container .error-form {
+    border-color: var(--font-color-lose) !important;
+}
+
+.form-group .error {
+    float: left;
+    font-style: italic;
+    color: var(--font-color-lose);
+    font-weight: 500;
+}
+
+.form-group .hidden {
+    display: none;
+}
+
+#form-container textarea:focus {
+    outline: none !important;
+    border-color: var(--font-color-win) !important;
+}
+
+#form-container ::placeholder {
+    color: var(--color-unfocus);
+}
+
+#form-container .actions {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: center;
 }
 
 @media screen and (max-width: 1100px) {
@@ -264,5 +318,11 @@ button:hover {
 
     .match .information {
         width: 90%;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .card-body {
+        padding: 20px 0px;
     }
 }

@@ -19,6 +19,7 @@
         let svg;
         let pieChartG;
         let middleInformation;
+        let firstLoad = true;
         const radius = Math.min(width, height) / 2;
         createAll();
 
@@ -40,6 +41,8 @@
                 .append('svg')
                 .attr("width", '100%')
                 .attr("height", '100%')
+                .style("min-width", '180px')
+                .style("max-width", '250px')
                 .attr('viewBox', '0 0 ' + height + ' ' + width)
                 .attr('preserveAspectRatio', 'xMinYMin');
             pieChartG = svg.append('g')
@@ -72,6 +75,20 @@
                 })
                 .attr('d', arc)
                 .attr('fill', d => colors[d.id])
+                .transition()
+                .duration((d, index) => (500))
+                .attrTween('d', (d, index) => {
+                    if (firstLoad) {
+                        if (dataDonut.length - 1 === index) {
+                            firstLoad = false;
+                        }
+                        const i = d3.interpolate(d.startAngle, d.endAngle);
+                        return function (t) {
+                            d.endAngle = i(t);
+                            return arc(d);
+                        }
+                    }
+                });
 
         }
 

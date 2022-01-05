@@ -25,3 +25,15 @@ D
 ping_tracker/asgi.py,4\1\416b55bfe51d0ea6635bafdb3e3dfea0ef924189
 H
 ping_tracker/__init__.py,5\2\52e5e4af5a38899b78406ff2d22164f56ef7fe9b
+=
+ping/tests.py,f\c\fcf79895ed7819f03e654722f3e965be1e638f08
+H
+ping_tracker/settings.py,c\9\c98e90e37d7947621c71309d00f757c6f0315e44
+N
+ping/templatetags/ping_pipe.py,b\8\b8c82d4ad19d1fcc23e5ea7d7d587d82e0b7da80
+=
+ping/admin.py,f\2\f2ba45c9cfe21d8e607130a7b1d92eb1e0f16969
+9
+	manage.py,3\1\3156ad13e4d695cd526bbb7b031016ecba842270
+D
+ping_tracker/wsgi.py,a\2\a2a2d0889232de7e499681360ed512fdcee42609

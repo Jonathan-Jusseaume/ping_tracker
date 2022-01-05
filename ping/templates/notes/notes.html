@@ -4,8 +4,8 @@
     <section class="card notes-container">
         <h1 class="card-title">Mes notes</h1>
         <button id="add" class="add-button">AJOUTER</button>
-        <section class="card-body">
-            <form id="form-container" method="post" action="add-notes">
+        <section class="card-body ">
+            <form id="form-container" onsubmit="return checkForm()" method="post" action="add-notes">
                 {% csrf_token %}
             </form>
             {% for note in notes %}
