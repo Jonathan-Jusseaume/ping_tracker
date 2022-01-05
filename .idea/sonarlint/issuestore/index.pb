@@ -29,8 +29,6 @@ H
 ping/tests.py,f\c\fcf79895ed7819f03e654722f3e965be1e638f08
 H
 ping_tracker/settings.py,c\9\c98e90e37d7947621c71309d00f757c6f0315e44
-N
-ping/templatetags/ping_pipe.py,b\8\b8c82d4ad19d1fcc23e5ea7d7d587d82e0b7da80
 =
 ping/admin.py,f\2\f2ba45c9cfe21d8e607130a7b1d92eb1e0f16969
 9

@@ -261,24 +261,36 @@ input[type=reset]:hover {
     width: 100%;
 }
 
-#form-container textarea {
+#form-container textarea, #form-container input[type=number], #form-container input[type=text],
+#form-container input[type=date] {
+    font-size: 16px;
     width: 100%;
-    min-height: 140px;
     margin-top: 5px;
     background: var(--main-color);
     border: 2px solid var(--font-color);
     border-radius: 5px;
     color: var(--font-color);
+}
+
+#form-container input[type=number], #form-container input[type=text], #form-container input[type=date] {
+    min-height: 40px;
+}
+
+#form-container textarea {
+    min-height: 140px;
     resize: none;
-    font-size: 16px;
 }
 
 #form-container .error-form {
     border-color: var(--font-color-lose) !important;
 }
 
-.form-group .error {
+.form-group span,
+.form-group label {
     float: left;
+}
+
+.form-group .error {
     font-style: italic;
     color: var(--font-color-lose);
     font-weight: 500;
@@ -288,7 +300,7 @@ input[type=reset]:hover {
     display: none;
 }
 
-#form-container textarea:focus {
+#form-container textarea:focus, #form-container input[type=number]:focus, #form-container input[type=text]:focus {
     outline: none !important;
     border-color: var(--font-color-win) !important;
 }
@@ -300,8 +312,29 @@ input[type=reset]:hover {
 #form-container .actions {
     display: flex;
     flex-direction: row;
-    gap: 12px;
-    justify-content: center;
+    gap: 20px;
+    justify-content: right;
+    margin-top: 20px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+#form-container table input[type=number] {
+    max-width: 40px;
+    text-align: center;
+}
+
+#form-container table {
+    width: 100%;
 }
 
 @media screen and (max-width: 1100px) {
@@ -321,8 +354,16 @@ input[type=reset]:hover {
     }
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 700px) {
     .card-body {
         padding: 20px 0px;
     }
+
+    .actions {
+        flex-direction: column !important;
+    }
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }

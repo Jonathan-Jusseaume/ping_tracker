@@ -5,6 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+import json
 from datetime import date
 from enum import Enum
 
@@ -25,6 +26,10 @@ class Opponent(models.Model):
     id = models.CharField(primary_key=True, max_length=7, db_column='opp_id')
     last_name = models.CharField(max_length=50, db_column='opp_last_name')
     first_name = models.CharField(max_length=50, db_column='opp_first_name')
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
     class Meta:
         managed = False

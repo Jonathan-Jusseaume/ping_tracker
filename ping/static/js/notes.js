@@ -5,7 +5,6 @@ let crsfToken;
 function init() {
     crsfToken = document.getElementById('form-container').innerHTML;
     document.getElementById('add').addEventListener("click", addForm);
-
 }
 
 function addForm() {

@@ -19,6 +19,10 @@ def opponent_details(opponent):
     return format_html('{} {}', opponent.last_name.upper(), opponent.first_name.capitalize())
 
 
+def obj_dict(obj):
+    return obj.__dict__
+
+
 @register.filter(is_safe=True)
 def js(obj):
-    return mark_safe(json.dumps(obj))
+    return mark_safe(json.dumps(obj, default=obj_dict))

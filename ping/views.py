@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
 # Create your views here.
-from ping.models import Match, Note, Set
+from ping.models import Match, Note, Opponent, Set
 
 
 def main(request):
@@ -17,6 +17,10 @@ def notes(request):
 
 def history(request):
     return render(request, "history/history.html", {"matchs": Match.get_matchs_of_user(request.user)})
+
+
+def match(request):
+    return render(request, "add-match/add-match.html", {"opponents": list(Opponent.objects.all())})
 
 
 def add_notes(request):

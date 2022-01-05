@@ -1,0 +1,125 @@
+{% extends "main.html" %}
+{% load static %}
+{% load ping_pipe %}
+{% block content %}
+    <section class="card notes-container">
+        <h1 class="card-title">Ajouter une rencontre</h1>
+        <section class="card-body">
+            <form id="form-container" class="active-form" onsubmit="return checkForm()" method="post"
+                  action="add-match">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_license">Numéro de licence du joueur</label>
+                    <span class="error hidden">Le numéro de licence contient 7 chiffres</span>
+                    <input type="number" autocomplete="off" id="id_license"
+                           name="id_license"/>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Nom du joueur</label>
+                    <span class="error hidden">Le nom doit être compris entre 1 et 50 caractères</span>
+                    <input type="text" maxlength="50" autocomplete="off" id="last_name"
+                           onkeyup="search()"
+                           name="last_name"/>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">Prénom du joueur</label>
+                    <span class="error hidden">Le prénom doit être compris entre 1 et 50 caractères</span>
+                    <input type="text" maxlength="50" autocomplete="off" id="first_name"
+                           name="first_name"/>
+                </div>
+                <div class="form-group">
+                    <label for="rank">Classement du joueur au moment de la rencontre</label>
+                    <span class="error hidden">Le classement du joueur doit être compris entre 500 et 4000</span>
+                    <input type="number" autocomplete="off"
+                           id="rank"
+                           name="rank"/>
+                </div>
+                <div class="form-group">
+                    <label for="date">La date de la rencontre</label>
+                    <span class="error hidden">La date ne peut pas être dans le futur</span>
+                    <input type="date" autocomplete="off"
+                           id="date"
+                           name="date"/>
+                </div>
+                <div class="match">
+                    <table class="results">
+                        <caption>Résumé du match</caption>
+                        <thead>
+                        <tr>
+                            <th id="players">Joueurs</th>
+                            <th>Manche 1</th>
+                            <th>Manche 2</th>
+                            <th>Manche 3</th>
+                            <th>Manche 4</th>
+                            <th>Manche 5</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="joueur">
+                                Moi
+                            </td>
+                            <td class="round">
+                                <input type="number" id="user_1"/>
+                            </td>
+                            <td class="round">
+                                <input type="number" id="user_2"/>
+                            </td>
+
+                            <td class="round">
+                                <input type="number" id="user_3"/>
+                            </td>
+                            <td class="round">
+                                <input type="number" id="user_4"/>
+                            </td>
+                            <td class="round">
+                                <input type="number" id="user_5"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="joueur">
+                                Adversaire
+                            </td>
+                            <td class="round">
+                                <input type="number" id="opponent_1"/>
+                            </td>
+                            <td class="round">
+                                <input type="number" id="opponent_2"/>
+                            </td>
+
+                            <td class="round">
+                                <input type="number" id="opponent_3"/>
+                            </td>
+                            <td class="round">
+                                <input type="number" id="opponent_4"/>
+                            </td>
+                            <td class="round">
+                                <input type="number" id="opponent_5"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="actions">
+                    <input type="reset" value="EFFACER"/>
+                    <input type="submit" value="VALIDER"/>
+                </div>
+            </form>
+        </section>
+    </section>
+    <script>
+        let opponents = {{ opponents | js }};
+        console.log(opponents);
+
+        function search() {
+            console.log(document.getElementById('last_name').value);
+            const searchOpponent = opponents.find(opponent => opponent.last_name.toLowerCase() === document.getElementById('last_name').value.toLowerCase());
+            if (searchOpponent) {
+                document.getElementById('first_name').value = searchOpponent.first_name;
+                console.log(searchOpponent.id);
+                document.getElementById('id_license').setAttribute('value', searchOpponent.id);
+            }
+        }
+    </script>
+{% endblock %}
+
