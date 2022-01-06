@@ -110,7 +110,7 @@ class Match(models.Model):
                              StatusType.VICTORY.value if victory_user == 3 else StatusType.DEFEAT.value,
                              rank_opponent)
         for i in range(len(user_scores)):
-            Set.insert(match, user_scores[i], opponent_scores[i], i)
+            Set.insert(match, user_scores[i], opponent_scores[i], i + 1)
 
     class Meta:
         managed = False
