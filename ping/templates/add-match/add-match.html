@@ -5,45 +5,60 @@
     <section class="card notes-container">
         <h1 class="card-title">Ajouter une rencontre</h1>
         <section class="card-body">
-            <form id="form-container" class="active-form" onsubmit="return checkForm()" method="post"
-                  action="add-match">
+            <form id="form-container" class="active-form" onreset="clearErrors()"
+                  onsubmit="return checkForm()"
+                  method="post"
+                  action="submit-match">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="id_license">Numéro de licence du joueur</label>
-                    <span class="error hidden">Le numéro de licence contient 7 chiffres</span>
-                    <input type="number" autocomplete="off" id="id_license"
+                    <span class="error hidden"
+                          id="id_license_error">Le numéro de licence doit contenir 7 chiffres</span>
+                    <input type="text" autocomplete="off" maxlength="7" id="id_license"
                            name="id_license"/>
                 </div>
                 <div class="form-group">
                     <label for="last_name">Nom du joueur</label>
-                    <span class="error hidden">Le nom doit être compris entre 1 et 50 caractères</span>
+                    <span class="error hidden"
+                          id="last_name_error">Le nom doit être compris entre 1 et 50 caractères</span>
                     <input type="text" maxlength="50" autocomplete="off" id="last_name"
                            onkeyup="search()"
                            name="last_name"/>
                 </div>
                 <div class="form-group">
                     <label for="first_name">Prénom du joueur</label>
-                    <span class="error hidden">Le prénom doit être compris entre 1 et 50 caractères</span>
+                    <span class="error hidden" id="first_name_error">Le prénom doit être compris entre 1 et 50 caractères</span>
                     <input type="text" maxlength="50" autocomplete="off" id="first_name"
                            name="first_name"/>
                 </div>
                 <div class="form-group">
                     <label for="rank">Classement du joueur au moment de la rencontre</label>
-                    <span class="error hidden">Le classement du joueur doit être compris entre 500 et 4000</span>
+                    <span class="error hidden" id="rank_error">
+                        Le classement du joueur doit être compris entre 500 et 4000
+                    </span>
                     <input type="number" autocomplete="off"
                            id="rank"
                            name="rank"/>
                 </div>
                 <div class="form-group">
                     <label for="date">La date de la rencontre</label>
-                    <span class="error hidden">La date ne peut pas être dans le futur</span>
+                    <span class="error hidden" id="date_error">La date doit être une date du passé valide</span>
                     <input type="date" autocomplete="off"
                            id="date"
                            name="date"/>
                 </div>
+                <div class="form-group">
+                    <label for="comment">Un commentaire sur la rencontre</label>
+                    <span class="error hidden"
+                          id="comment_error">Votre commentaire ne peut pas dépasser 500 caractères</span>
+                    <textarea maxlength="500" id="comment"
+                              name="comment"></textarea>
+                </div>
                 <div class="match">
                     <table class="results">
-                        <caption>Résumé du match</caption>
+                        <caption>Résumé du match
+                            <br>
+                            <span class="hidden error" id="error_match">Ceci n'est pas un match valide</span></caption>
                         <thead>
                         <tr>
                             <th id="players">Joueurs</th>
@@ -60,20 +75,20 @@
                                 Moi
                             </td>
                             <td class="round">
-                                <input type="number" id="user_1"/>
+                                <input type="number" id="user_1" name="user_1"/>
                             </td>
                             <td class="round">
-                                <input type="number" id="user_2"/>
+                                <input type="number" id="user_2" name="user_2"/>
                             </td>
 
                             <td class="round">
-                                <input type="number" id="user_3"/>
+                                <input type="number" id="user_3" name="user_3"/>
                             </td>
                             <td class="round">
-                                <input type="number" id="user_4"/>
+                                <input type="number" id="user_4" name="user_4"/>
                             </td>
                             <td class="round">
-                                <input type="number" id="user_5"/>
+                                <input type="number" id="user_5" name="user_5"/>
                             </td>
                         </tr>
                         <tr>
@@ -81,20 +96,20 @@
                                 Adversaire
                             </td>
                             <td class="round">
-                                <input type="number" id="opponent_1"/>
+                                <input type="number" id="opponent_1" name="opponent_1"/>
                             </td>
                             <td class="round">
-                                <input type="number" id="opponent_2"/>
+                                <input type="number" id="opponent_2" name="opponent_2"/>
                             </td>
 
                             <td class="round">
-                                <input type="number" id="opponent_3"/>
+                                <input type="number" id="opponent_3" name="opponent_3"/>
                             </td>
                             <td class="round">
-                                <input type="number" id="opponent_4"/>
+                                <input type="number" id="opponent_4" name="opponent_4"/>
                             </td>
                             <td class="round">
-                                <input type="number" id="opponent_5"/>
+                                <input type="number" id="opponent_5" name="opponent_5"/>
                             </td>
                         </tr>
                         </tbody>
@@ -109,16 +124,174 @@
     </section>
     <script>
         let opponents = {{ opponents | js }};
-        console.log(opponents);
 
         function search() {
-            console.log(document.getElementById('last_name').value);
             const searchOpponent = opponents.find(opponent => opponent.last_name.toLowerCase() === document.getElementById('last_name').value.toLowerCase());
             if (searchOpponent) {
                 document.getElementById('first_name').value = searchOpponent.first_name;
-                console.log(searchOpponent.id);
-                document.getElementById('id_license').setAttribute('value', searchOpponent.id);
+                document.getElementById('id_license').value = searchOpponent.id;
             }
+        }
+
+        function clearErrors() {
+            document.getElementById('id_license').classList.remove('error-form');
+            document.getElementById('id_license_error').classList.add('hidden');
+            document.getElementById('last_name').classList.remove('error-form');
+            document.getElementById('last_name_error').classList.add('hidden');
+            document.getElementById('comment_error').classList.add('hidden');
+            document.getElementById('first_name').classList.remove('error-form');
+            document.getElementById('first_name_error').classList.add('hidden');
+            document.getElementById('rank').classList.remove('error-form');
+            document.getElementById('rank_error').classList.add('hidden');
+            document.getElementById('date').classList.remove('error-form');
+            document.getElementById('date_error').classList.add('hidden');
+            document.getElementById("error_match").classList.add("hidden");
+            document.getElementById("user_1").classList.remove("error-form");
+            document.getElementById("user_2").classList.remove("error-form");
+            document.getElementById("user_3").classList.remove("error-form");
+            document.getElementById("user_4").classList.remove("error-form");
+            document.getElementById("user_5").classList.remove("error-form");
+            document.getElementById("opponent_1").classList.remove("error-form");
+            document.getElementById("opponent_2").classList.remove("error-form");
+            document.getElementById("opponent_3").classList.remove("error-form");
+            document.getElementById("opponent_4").classList.remove("error-form");
+            document.getElementById("opponent_5").classList.remove("error-form");
+            document.getElementById("comment").classList.remove("error-form");
+        }
+
+        function checkForm() {
+            let isValid = true;
+
+            clearErrors();
+            // Check id_license
+            const idLicense = document.getElementById('id_license').value;
+            if (idLicense.length != 7 || isNaN(idLicense)) {
+                document.getElementById('id_license').classList.add('error-form');
+                document.getElementById('id_license_error').classList.remove('hidden');
+                isValid = false;
+            }
+
+            // check last_name
+            const lastName = document.getElementById('last_name').value;
+            if (lastName.length < 1 || lastName.length > 50) {
+                document.getElementById('last_name').classList.add('error-form');
+                document.getElementById('last_name_error').classList.remove('hidden');
+                isValid = false;
+            }
+
+            // check first_name
+            const firstName = document.getElementById('first_name').value;
+            if (firstName.length < 1 || firstName.length > 50) {
+                document.getElementById('first_name').classList.add('error-form');
+                document.getElementById('first_name_error').classList.remove('hidden');
+                isValid = false;
+            }
+
+            // check rank
+            const rank = document.getElementById('rank').value;
+            if (rank < 500 || rank > 4000) {
+                document.getElementById('rank').classList.add('error-form');
+                document.getElementById('rank_error').classList.remove('hidden');
+                isValid = false;
+            }
+
+            // check date
+            const date = document.getElementById('date').value;
+            if (date == "" || new Date(date) > new Date()) {
+                document.getElementById('date').classList.add('error-form');
+                document.getElementById('date_error').classList.remove('hidden');
+                isValid = false;
+            }
+
+            // check comment
+            const comment = document.getElementById('comment').value;
+            if (comment.length > 500) {
+                document.getElementById('comment').classList.add('error-form');
+                document.getElementById('comment_error').classList.remove('hidden');
+            }
+
+            // check match
+            const user_1 = parseInt(document.getElementById("user_1").value, 10);
+            const user_2 = parseInt(document.getElementById("user_2").value, 10);
+            const user_3 = parseInt(document.getElementById("user_3").value, 10);
+            const user_4 = parseInt(document.getElementById("user_4").value, 10);
+            const user_5 = parseInt(document.getElementById("user_5").value, 10);
+            const opponent_1 = parseInt(document.getElementById("opponent_1").value, 10);
+            const opponent_2 = parseInt(document.getElementById("opponent_2").value, 10);
+            const opponent_3 = parseInt(document.getElementById("opponent_3").value, 10);
+            const opponent_4 = parseInt(document.getElementById("opponent_4").value, 10);
+            const opponent_5 = parseInt(document.getElementById("opponent_5").value, 10);
+            const bilanSets = [checkWinSet(user_1, opponent_1),
+                checkWinSet(user_2, opponent_2),
+                checkWinSet(user_3, opponent_3),
+                checkWinSet(user_4, opponent_4),
+                checkWinSet(user_5, opponent_5)
+            ];
+            let validMatch = true;
+            // Il faut au moins que les 3 premiers sets soient valides
+            if (bilanSets.slice(0, 3).some(result => result == -2 || result == -1)) {
+                validMatch = false;
+            }
+            // Tous les sets ne doivent pas être mal remplis
+            if (bilanSets.some(result => result == -1)) {
+                validMatch = false;
+            }
+            // Le 5e set ne peut pas etre rempli si le quatrieme n'est pas rempli
+            if (bilanSets[4] != -2 && bilanSets[3] == -2) {
+                validMatch = false;
+            }
+            // Il faut gagner 3 sets
+            if (bilanSets.filter(result => result == 1).length != 3
+                && bilanSets.filter(result => result == 0).length != 3) {
+                validMatch = false;
+            }
+            console.log(bilanSets);
+            if (!validMatch) {
+                document.getElementById("error_match").classList.remove("hidden");
+                isValid = false;
+                document.getElementById("user_1").classList.add("error-form");
+                document.getElementById("user_2").classList.add("error-form");
+                document.getElementById("user_3").classList.add("error-form");
+                document.getElementById("user_4").classList.add("error-form");
+                document.getElementById("user_5").classList.add("error-form");
+                document.getElementById("opponent_1").classList.add("error-form");
+                document.getElementById("opponent_2").classList.add("error-form");
+                document.getElementById("opponent_3").classList.add("error-form");
+                document.getElementById("opponent_4").classList.add("error-form");
+                document.getElementById("opponent_5").classList.add("error-form");
+            }
+            console.log(isValid);
+            return isValid;
+        }
+
+        // Fonction qui retourne -2 si le set est vide, -1 si le set n'est pas valide, 0 si le set est gagné par le joueur et 1 si l'opposant a gagné
+        function checkWinSet(scoreUser, scoreOpponent) {
+            // Pas valide si l'un des deux scores est vide
+            if (isNaN(scoreUser) || isNaN(scoreOpponent)) {
+                return -2;
+            }
+            // Pas valide si l'un des scores est négatif
+            if (scoreUser < 0 || scoreOpponent < 0) {
+                return -1;
+            }
+            // Pas valide si les deux scores sont inférieurs à 11
+            if (scoreUser < 11 && scoreOpponent < 11) {
+                return -1;
+            }
+
+            // Pas valide si on est dans les points d'écarts et que le score d'écart est différent de 2
+            if (scoreUser >= 10 && scoreOpponent >= 10 && Math.abs(scoreUser - scoreOpponent) !== 2) {
+                return -1;
+            }
+            // Pas valide si l'un des scores est inférieur à 10 et que l'autre score ne vaut pas 11
+            if ((scoreUser !== 11 && scoreOpponent < 10) || (scoreOpponent !== 11 && scoreUser < 10)) {
+                return -1;
+            }
+
+            if (scoreUser > scoreOpponent) {
+                return 0;
+            }
+            return 1;
         }
     </script>
 {% endblock %}

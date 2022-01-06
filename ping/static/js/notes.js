@@ -32,12 +32,16 @@ function addForm() {
 
 function checkForm() {
     const textArea = document.getElementById('note')
-    document.getElementById('note-error').classList.add('hidden');
-    document.getElementById('note').classList.remove('error-form');
+    clearErrors();
     if (textArea.value.length < 5 || textArea.value > 500) {
         document.getElementById('note').classList.add('error-form');
         document.getElementById('note-error').classList.remove('hidden');
         return false;
     }
     return true;
+}
+
+function clearErrors() {
+    document.getElementById('note-error').classList.add('hidden');
+    document.getElementById('note').classList.remove('error-form');
 }

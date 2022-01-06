@@ -51,7 +51,9 @@
                         </table>
                     </div>
                     <div class="commentary">
-                        "{{ match.comment }}"
+                        {% if match.comment is not None %}
+                            "{{ match.comment }}"
+                        {% endif %}
                     </div>
                 </fieldset>
             {% endfor %}

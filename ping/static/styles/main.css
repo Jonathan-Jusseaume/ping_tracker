@@ -266,6 +266,8 @@ input[type=reset]:hover {
 #form-container .form-group {
     margin: 20px auto;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #form-container textarea, #form-container input[type=number], #form-container input[type=text],
@@ -298,13 +300,13 @@ input[type=reset]:hover {
     text-align: left;
 }
 
-.form-group .error {
+.form-group .error, caption .error {
     font-style: italic;
     color: var(--font-color-lose);
     font-weight: 500;
 }
 
-.form-group .hidden {
+.form-group .hidden, caption .hidden {
     display: none;
 }
 
@@ -402,6 +404,13 @@ input[type=number] {
         flex-direction: column !important;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .match table, .match table th, .match table td {
+        padding: 8px 0 !important;
+    }
+}
+
 
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);

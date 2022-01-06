@@ -35,3 +35,15 @@ H
 	manage.py,3\1\3156ad13e4d695cd526bbb7b031016ecba842270
 D
 ping_tracker/wsgi.py,a\2\a2a2d0889232de7e499681360ed512fdcee42609
+S
+#docs/ping-tracker-instantiation.sql,3\f\3f1e5b01a35c243e8e00bec978a30c7f9a7f88b6
+=
+docs/link.txt,f\4\f43a6280e29e355cc6ce42f59b2f32c5c4a6fd0c
+F
+docs/bd-conception.txt,c\2\c2a19e42f5cf51e4b63f7ceb5fae2903a7132bb9
+L
+ping/static/assets/icone.svg,9\4\94c3d980dd67af01cd27c3c1cdccb8012c4086bd
+K
+ping/static/assets/logo.svg,8\9\890f0a116fa342537b90708ac110f6bbd1d0d848
+e
+5ping/templates/dashboard/donut_chart/donut_chart.html,1\2\12c36a8e24d19e2531756fc5c4394e4a78a388c1

@@ -5,7 +5,6 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-import json
 from datetime import date
 from enum import Enum
 
@@ -27,9 +26,11 @@ class Opponent(models.Model):
     last_name = models.CharField(max_length=50, db_column='opp_last_name')
     first_name = models.CharField(max_length=50, db_column='opp_first_name')
 
-    def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
+    @staticmethod
+    def insert(id, last_name, first_name):
+        opponent = Opponent(id, last_name, first_name)
+        opponent.save()
+        return Opponent.objects.get(pk=id)
 
     class Meta:
         managed = False
@@ -72,6 +73,15 @@ class Match(models.Model):
         return "Match de:" + self.opponent.last_name
 
     @staticmethod
+    def insert(opponent, comment, match_date, status, rank):
+        return Match.objects.create(user_id=1,
+                                    comment=comment,
+                                    opponent_id=opponent.id,
+                                    date=match_date,
+                                    rank_opponent=rank,
+                                    status_id=status)
+
+    @staticmethod
     def get_win_lose_ratio(user):
         win_lose_ratio = {
             StatusTypeString.VICTORY.value: Match.objects.filter(status__id=StatusType.VICTORY.value).count(),
@@ -85,6 +95,22 @@ class Match(models.Model):
         for match in matchs:
             match.get_sets_of_match()
         return matchs
+
+    @staticmethod
+    def add_match(opponent, user_scores, opponent_scores, comment, date, rank_opponent):
+        victory_user = 0
+        for i in range(len(user_scores)):
+            user_scores[i] = int(user_scores[i])
+            opponent_scores[i] = int(opponent_scores[i])
+            if user_scores[i] > opponent_scores[i]:
+                victory_user += 1
+        match = Match.insert(opponent,
+                             comment,
+                             date,
+                             StatusType.VICTORY.value if victory_user == 3 else StatusType.DEFEAT.value,
+                             rank_opponent)
+        for i in range(len(user_scores)):
+            Set.insert(match, user_scores[i], opponent_scores[i], i)
 
     class Meta:
         managed = False
@@ -140,6 +166,13 @@ class Set(models.Model):
     class Meta:
         managed = False
         db_table = 'pt_set'
+
+    @staticmethod
+    def insert(match, score_user, score_opponent, number):
+        return Set.objects.create(match_id=match.id,
+                                  score_user=score_user,
+                                  score_opponent=score_opponent,
+                                  number=number)
 
 
 class StatusType(Enum):

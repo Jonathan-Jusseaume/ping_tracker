@@ -24,5 +24,6 @@ urlpatterns = [
     path('notes', ping.views.notes),
     path('match', ping.views.match),
     path('add-notes', ping.views.add_notes),
+    path('submit-match', ping.views.submit_match),
     path('historique', ping.views.history),
 ]
