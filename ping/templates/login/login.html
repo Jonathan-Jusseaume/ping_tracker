@@ -31,6 +31,11 @@
                 <input type="password" maxlength="50" autocomplete="off" id="password"
                        name="password"/>
             </div>
+            {% if error == 1 %}
+                <div class="form-group">
+                    <span class="error">Le login ou le mot de passe est incorrect</span>
+                </div>
+            {% endif %}
             <div class="actions">
                 <input type="reset" value="EFFACER"/>
                 <input type="submit" value="VALIDER"/>
