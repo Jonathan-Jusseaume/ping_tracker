@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ping Tracker</title>
+    <link href="{% static 'styles/main.css' %}" type="text/css" rel="stylesheet">
+    <link rel="icon" href="{% static 'assets/icone.svg' %}"/>
+</head>
+<body>
+<section class="card notes-container limited-600">
+    <img src="{% static "/assets/logo.svg" %}" width="200" style="margin-bottom: 30px"/>
+    <h1 class="card-title">Connexion</h1>
+    <section class="card-body">
+        <form id="form-container" class="active-form" onreset="clearErrors()"
+              onsubmit="return checkForm()"
+              method="post"
+              action="check-connexion">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_license">Login</label>
+                <span class="error hidden"
+                      id="login_error">Ce champ est obligatoire</span>
+                <input type="text" maxlength="50" id="login" autocomplete="off"
+                       name="login"/>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Mot de passe</label>
+                <span class="error hidden"
+                      id="password_error">Ce champ est obligatoire</span>
+                <input type="password" maxlength="50" autocomplete="off" id="password"
+                       name="password"/>
+            </div>
+            <div class="actions">
+                <input type="reset" value="EFFACER"/>
+                <input type="submit" value="VALIDER"/>
+            </div>
+        </form>
+    </section>
+</section>
+</body>
+<script>
+    function clearErrors() {
+        document.getElementById('login').classList.remove('error-form');
+        document.getElementById('login_error').classList.add('hidden');
+        document.getElementById('password').classList.remove('error-form');
+        document.getElementById('password_error').classList.add('hidden');
+    }
+
+    function checkForm() {
+        let isValid = true;
+
+        clearErrors();
+
+        // check last_name
+        const login = document.getElementById('login').value;
+        if (login.length < 1 || login.length > 50) {
+            document.getElementById('login').classList.add('error-form');
+            document.getElementById('login_error').classList.remove('hidden');
+            isValid = false;
+        }
+
+        const password = document.getElementById('password').value;
+        if (password.length < 1 || password.length > 50) {
+            document.getElementById('password').classList.add('error-form');
+            document.getElementById('password_error').classList.remove('hidden');
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+</script>

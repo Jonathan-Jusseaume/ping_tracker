@@ -274,7 +274,7 @@ input[type=reset]:hover {
 }
 
 #form-container textarea, #form-container input[type=number], #form-container input[type=text],
-#form-container input[type=date] {
+#form-container input[type=date], #form-container input[type=password] {
     font-size: 16px;
     width: 100%;
     margin-top: 5px;
@@ -286,7 +286,7 @@ input[type=reset]:hover {
     box-sizing: border-box;
 }
 
-#form-container input[type=number], #form-container input[type=text], #form-container input[type=date] {
+#form-container input[type=number], #form-container input[type=text], #form-container input[type=date], #form-container input[type=password] {
     min-height: 50px;
 }
 
@@ -315,13 +315,18 @@ input[type=reset]:hover {
     display: none;
 }
 
-#form-container textarea:focus, #form-container input[type=number]:focus, #form-container input[type=text]:focus {
+#form-container textarea:focus, #form-container input[type=number]:focus, #form-container input[type=text]:focus, #form-container input[type=password]:focus {
     outline: none !important;
     border-color: var(--font-color-win) !important;
 }
 
 #form-container ::placeholder {
     color: var(--color-unfocus);
+}
+
+.limited-600 {
+    max-width: 600px;
+    margin: auto;
 }
 
 #form-container .actions {

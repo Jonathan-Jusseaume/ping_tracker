@@ -44,8 +44,8 @@ class Note(models.Model):
     user = models.ForeignKey(User, models.DO_NOTHING, db_column='not_usr_id')
 
     @staticmethod
-    def add_note(content):
-        Note.objects.create(content=content, user_id=1, date=date.today())
+    def add_note(user, content):
+        Note.objects.create(user=user, content=content, date=date.today())
 
     @staticmethod
     def get_notes_of_user(user):
@@ -73,8 +73,8 @@ class Match(models.Model):
         return "Match de:" + self.opponent.last_name
 
     @staticmethod
-    def insert(opponent, comment, match_date, status, rank):
-        return Match.objects.create(user_id=1,
+    def insert(user, opponent, comment, match_date, status, rank):
+        return Match.objects.create(user=user,
                                     comment=comment,
                                     opponent_id=opponent.id,
                                     date=match_date,
@@ -84,27 +84,29 @@ class Match(models.Model):
     @staticmethod
     def get_win_lose_ratio(user):
         win_lose_ratio = {
-            StatusTypeString.VICTORY.value: Match.objects.filter(status__id=StatusType.VICTORY.value).count(),
-            StatusTypeString.DEFEAT.value: Match.objects.filter(status__id=StatusType.DEFEAT.value).count()
+            StatusTypeString.VICTORY.value: Match.objects.filter(status__id=StatusType.VICTORY.value,
+                                                                 user=user).count(),
+            StatusTypeString.DEFEAT.value: Match.objects.filter(status__id=StatusType.DEFEAT.value, user=user).count()
         }
         return win_lose_ratio
 
     @staticmethod
     def get_matchs_of_user(user):
-        matchs = Match.objects.all().order_by('-date')
+        matchs = Match.objects.filter(user=user).order_by('-date')
         for match in matchs:
             match.get_sets_of_match()
         return matchs
 
     @staticmethod
-    def add_match(opponent, user_scores, opponent_scores, comment, date, rank_opponent):
+    def add_match(user, opponent, user_scores, opponent_scores, comment, date, rank_opponent):
         victory_user = 0
         for i in range(len(user_scores)):
             user_scores[i] = int(user_scores[i])
             opponent_scores[i] = int(opponent_scores[i])
             if user_scores[i] > opponent_scores[i]:
                 victory_user += 1
-        match = Match.insert(opponent,
+        match = Match.insert(user,
+                             opponent,
                              comment,
                              date,
                              StatusType.VICTORY.value if victory_user == 3 else StatusType.DEFEAT.value,
@@ -128,8 +130,7 @@ class Set(models.Model):
     def get_fifth_set_ratio(user):
         win_fifth_set = 0
         lose_fifth_set = 0
-        # @todo A filtrer par les matchs de l'utilisateur courant
-        matchs = Match.objects.all()
+        matchs = Match.objects.filter(user=user)
         fifth_sets = Set.objects.filter(match__in=matchs, number=5)
         for set in fifth_sets:
             if set.score_user > set.score_opponent:
@@ -147,8 +148,7 @@ class Set(models.Model):
     def get_clutch_set_ratio(user):
         win_clutch_set = 0
         lose_clutch_set = 0
-        # @todo A filtrer par les matchs de l'utilisateur courant
-        matchs = Match.objects.all()
+        matchs = Match.objects.filter(user=user)
         sets = Set.objects.filter(match__in=matchs)
         for set in sets:
             if abs(set.score_user - set.score_opponent) <= 2:

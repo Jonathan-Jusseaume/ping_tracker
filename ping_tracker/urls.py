@@ -20,6 +20,9 @@ import ping.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', ping.views.login_view),
+    path('logout', ping.views.logout_view),
+    path('check-connexion', ping.views.check_connexion),
     path('dashboard', ping.views.main),
     path('notes', ping.views.notes),
     path('match', ping.views.match),
