@@ -59,6 +59,7 @@ nav a:first-of-type {
 
 nav .link {
     padding: 20px 0;
+    transition: background-color 400ms ease-in-out;
 }
 
 nav .link:hover {
@@ -72,6 +73,8 @@ nav .link:hover {
 
 nav .active-link svg path {
     fill: var(--font-color);
+    transition: fill 300ms ease-in-out;
+
 }
 
 nav .active-link {
@@ -279,10 +282,12 @@ input[type=reset]:hover {
     border: 2px solid var(--font-color);
     border-radius: 5px;
     color: var(--font-color);
+    padding: 5px 10px;
+    box-sizing: border-box;
 }
 
 #form-container input[type=number], #form-container input[type=text], #form-container input[type=date] {
-    min-height: 40px;
+    min-height: 50px;
 }
 
 #form-container textarea {
@@ -339,7 +344,7 @@ input[type=number] {
 }
 
 #form-container table input[type=number] {
-    max-width: 40px;
+    max-width: 50px;
     text-align: center;
 }
 
