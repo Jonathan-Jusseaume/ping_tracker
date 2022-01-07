@@ -99,3 +99,6 @@ ALTER TABLE pt_set
 
 ALTER TABLE pt_opponent
     ADD CONSTRAINT pt_opponent_id_is_valid CHECK ( LENGTH(opp_id) = 7 );
+
+ALTER TABLE pt_match
+    ADD CONSTRAINT pt_match_is_in_past CHECK ( mat_date <= CURRENT_DATE );
