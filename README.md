@@ -3,3 +3,7 @@ Application django permettant de tenir un journal de bord de ses performances au
 
 
 Lancement du serveur: python3 manage.py runserver localhost:5000
+
+Processus d'installation:
+Installer une base de données Postgresql
+    

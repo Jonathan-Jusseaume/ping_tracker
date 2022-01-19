@@ -19,8 +19,6 @@ K
 ping/__init__.py,3\2\32ca6f12a85a4887d673ee452f3c415f049f3e3e
 M
 ping/templatetags/__init__.py,a\4\a4d37caafc6220c70139b8684fbcf5118901a26d
-9
-	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 D
 ping_tracker/asgi.py,4\1\416b55bfe51d0ea6635bafdb3e3dfea0ef924189
 H
@@ -29,8 +27,6 @@ H
 ping/tests.py,f\c\fcf79895ed7819f03e654722f3e965be1e638f08
 H
 ping_tracker/settings.py,c\9\c98e90e37d7947621c71309d00f757c6f0315e44
-=
-ping/admin.py,f\2\f2ba45c9cfe21d8e607130a7b1d92eb1e0f16969
 9
 	manage.py,3\1\3156ad13e4d695cd526bbb7b031016ecba842270
 D
@@ -43,7 +39,7 @@ L
 ping/static/assets/icone.svg,9\4\94c3d980dd67af01cd27c3c1cdccb8012c4086bd
 K
 ping/static/assets/logo.svg,8\9\890f0a116fa342537b90708ac110f6bbd1d0d848
-e
-5ping/templates/dashboard/donut_chart/donut_chart.html,1\2\12c36a8e24d19e2531756fc5c4394e4a78a388c1
 N
 ping/templatetags/ping_pipe.py,b\8\b8c82d4ad19d1fcc23e5ea7d7d587d82e0b7da80
+T
+$.idea/codeStyles/codeStyleConfig.xml,d\d\dd7b3350c29c49497756c7f32c69a3bed18b1cba

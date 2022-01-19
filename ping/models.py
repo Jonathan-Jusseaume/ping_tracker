@@ -9,7 +9,7 @@ from datetime import date
 from enum import Enum
 
 from django.contrib.auth.models import User
-from django.db import models
+from django.db import connection, models
 
 
 class MatchStatus(models.Model):
@@ -49,7 +49,7 @@ class Note(models.Model):
 
     @staticmethod
     def get_notes_of_user(user):
-        return Note.objects.all().order_by('-date')
+        return Note.objects.filter(user=user).order_by('-date')
 
     class Meta:
         managed = False
@@ -80,15 +80,6 @@ class Match(models.Model):
                                     date=match_date,
                                     rank_opponent=rank,
                                     status_id=status)
-
-    @staticmethod
-    def get_win_lose_ratio(user):
-        win_lose_ratio = {
-            StatusTypeString.VICTORY.value: Match.objects.filter(status__id=StatusType.VICTORY.value,
-                                                                 user=user).count(),
-            StatusTypeString.DEFEAT.value: Match.objects.filter(status__id=StatusType.DEFEAT.value, user=user).count()
-        }
-        return win_lose_ratio
 
     @staticmethod
     def get_matchs_of_user(user):
@@ -126,43 +117,6 @@ class Set(models.Model):
     score_opponent = models.DecimalField(max_digits=65535, decimal_places=65535, db_column='set_score_opponent')
     number = models.DecimalField(max_digits=65535, decimal_places=65535, db_column='set_number')
 
-    @staticmethod
-    def get_fifth_set_ratio(user):
-        win_fifth_set = 0
-        lose_fifth_set = 0
-        matchs = Match.objects.filter(user=user)
-        fifth_sets = Set.objects.filter(match__in=matchs, number=5)
-        for set in fifth_sets:
-            if set.score_user > set.score_opponent:
-                win_fifth_set += 1
-            else:
-                lose_fifth_set += 1
-
-        fifth_set_ratio = {
-            StatusTypeString.VICTORY.value: win_fifth_set,
-            StatusTypeString.DEFEAT.value: lose_fifth_set
-        }
-        return fifth_set_ratio
-
-    @staticmethod
-    def get_clutch_set_ratio(user):
-        win_clutch_set = 0
-        lose_clutch_set = 0
-        matchs = Match.objects.filter(user=user)
-        sets = Set.objects.filter(match__in=matchs)
-        for set in sets:
-            if abs(set.score_user - set.score_opponent) <= 2:
-                if set.score_user > set.score_opponent:
-                    win_clutch_set += 1
-                else:
-                    lose_clutch_set += 1
-
-        clutch_set_ratio = {
-            StatusTypeString.VICTORY.value: win_clutch_set,
-            StatusTypeString.DEFEAT.value: lose_clutch_set
-        }
-        return clutch_set_ratio
-
     class Meta:
         managed = False
         db_table = 'pt_set'
@@ -173,6 +127,48 @@ class Set(models.Model):
                                   score_user=score_user,
                                   score_opponent=score_opponent,
                                   number=number)
+
+
+class UserStats(models.Model):
+    id = models.AutoField(primary_key=True, db_column='uss_id')
+    user = models.OneToOneField(User, models.DO_NOTHING, db_column='uss_usr_id')
+    victory = models.IntegerField(default=0, db_column='uss_number_victory')
+    defeat = models.IntegerField(default=0, db_column='uss_number_defeat')
+    fifth_set_victory = models.IntegerField(default=0, db_column='uss_fifth_set_victory')
+    fifth_set_defeat = models.IntegerField(default=0, db_column='uss_fifth_set_defeat')
+    decisive_victory = models.IntegerField(default=0, db_column='uss_decisive_victory')
+    decisive_defeat = models.IntegerField(default=0, db_column='uss_decisive_defeat')
+
+    def get_win_lose_ratio(self):
+        return {
+            StatusTypeString.VICTORY.value: self.victory,
+            StatusTypeString.DEFEAT.value: self.defeat
+        }
+
+    def get_fifth_set_ratio(self):
+        return {
+            StatusTypeString.VICTORY.value: self.fifth_set_victory,
+            StatusTypeString.DEFEAT.value: self.fifth_set_defeat
+        }
+
+    def get_clutch_set_ratio(self):
+        return {
+            StatusTypeString.VICTORY.value: self.decisive_victory,
+            StatusTypeString.DEFEAT.value: self.decisive_defeat
+        }
+
+    def get_average_opponents(self):
+        with connection.cursor() as c:
+            c.execute("SELECT cast(trunc(mat_rank_opponent / 100) as integer) AS ranking,"
+                      "sum(CASE WHEN mat_mas_id = 0 THEN 1 ELSE 0 END) AS victory, "
+                      "sum(CASE WHEN mat_mas_id = 1 THEN 1 ELSE 0 END) AS defeat "
+                      "FROM pt_match WHERE mat_usr_id = " + str(
+                self.user.id) + " GROUP BY trunc(mat_rank_opponent / 100);")
+            return c.fetchall()
+
+    class Meta:
+        managed = False
+        db_table = 'pt_user_stats'
 
 
 class StatusType(Enum):

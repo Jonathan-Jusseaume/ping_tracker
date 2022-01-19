@@ -183,13 +183,23 @@ fieldset .lose {
     max-width: 420px;
     padding: unset;
     margin: auto;
-
 }
 
+.bar-stats {
+    width: 100%;
+}
+
+.bar-stats .card-body {
+    padding: 20px 80px;
+    border: solid 1px var(--main-color);
+}
+
+.bar-stats .card-title {
+    margin: unset;
+}
 
 .stats .card-title {
     margin: unset;
-
 }
 
 .stats .card-body {
@@ -241,6 +251,7 @@ button, input[type=reset], input[type=submit] {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    transition: border-color 500ms, color 500ms;
 }
 
 button:hover, input[type=submit]:hover {
@@ -280,6 +291,7 @@ input[type=reset]:hover {
     margin-top: 5px;
     background: var(--main-color);
     border: 2px solid var(--font-color);
+    transition: border 500ms;
     border-radius: 5px;
     color: var(--font-color);
     padding: 5px 10px;
@@ -315,7 +327,7 @@ input[type=reset]:hover {
     display: none;
 }
 
-#form-container textarea:focus, #form-container input[type=number]:focus, #form-container input[type=text]:focus, #form-container input[type=password]:focus {
+#form-container textarea:focus, #form-container input[type=date]:focus, #form-container input[type=number]:focus, #form-container input[type=text]:focus, #form-container input[type=password]:focus {
     outline: none !important;
     border-color: var(--font-color-win) !important;
 }
