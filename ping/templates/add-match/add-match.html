@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label for="id_license">Numéro de licence du joueur</label>
                     <span class="error hidden"
-                          id="id_license_error">Le numéro de licence doit contenir 7 chiffres</span>
+                          id="id_license_error">Le numéro de licence ne peut pas excéder 7 chiffres</span>
                     <input type="text" autocomplete="off" maxlength="7" id="id_license"
                            name="id_license"/>
                 </div>
@@ -165,7 +165,7 @@
             clearErrors();
             // Check id_license
             const idLicense = document.getElementById('id_license').value;
-            if (idLicense.length != 7 || isNaN(idLicense)) {
+            if (idLicense.length > 7 || isNaN(idLicense)) {
                 document.getElementById('id_license').classList.add('error-form');
                 document.getElementById('id_license_error').classList.remove('hidden');
                 isValid = false;

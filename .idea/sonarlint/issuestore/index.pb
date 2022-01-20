@@ -43,3 +43,11 @@ N
 ping/templatetags/ping_pipe.py,b\8\b8c82d4ad19d1fcc23e5ea7d7d587d82e0b7da80
 T
 $.idea/codeStyles/codeStyleConfig.xml,d\d\dd7b3350c29c49497756c7f32c69a3bed18b1cba
+S
+#ping/templates/history/history.html,b\e\be1d16df087f04ea5cd8de33cf189012cca55678
+D
+ping_tracker/urls.py,8\0\80267af4f8f282ba0e565d69c16489e5c6acf49c
+=
+ping/admin.py,f\2\f2ba45c9cfe21d8e607130a7b1d92eb1e0f16969
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
